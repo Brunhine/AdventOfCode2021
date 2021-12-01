@@ -1,0 +1,52 @@
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Day1_SonarSweep
+{
+    public class SonarSweeper
+    {
+        private IEnumerable<int> Depths { get; }
+
+        public int Increases { get; }
+
+        public SonarSweeper(IEnumerable<int> depths)
+        {
+            Depths = depths;
+
+            Increases = CalculateIncreases();
+        }
+
+        private int CalculateIncreases()
+        {
+            var increases = 0;
+            var windows = GetWindows();
+
+            for (var i = 0; i < windows.Count - 1; i++)
+            {
+                var curr = windows[i];
+                var next = windows[i + 1];
+
+                if (next > curr) increases++;
+            }
+
+            return increases;
+        }
+
+        private List<int> GetWindows()
+        {
+            var windows = new List<int>();
+            var depths = Depths.ToList();
+
+            for (var i = 0; i < depths.Count - 2; i++)
+            {
+                var curr = depths[i];
+                var next = depths[i + 1];
+                var third = depths[i + 2];
+
+                windows.Add(curr + next + third);
+            }
+
+            return windows;
+        }
+    }
+}
