@@ -22,12 +22,8 @@ namespace Day1_SonarSweep
             var windows = GetWindows();
 
             for (var i = 0; i < windows.Count - 1; i++)
-            {
-                var curr = windows[i];
-                var next = windows[i + 1];
-
-                if (next > curr) increases++;
-            }
+                if (windows[i + 1] > windows[i])
+                    increases++;
 
             return increases;
         }
@@ -38,13 +34,7 @@ namespace Day1_SonarSweep
             var depths = Depths.ToList();
 
             for (var i = 0; i < depths.Count - 2; i++)
-            {
-                var curr = depths[i];
-                var next = depths[i + 1];
-                var third = depths[i + 2];
-
-                windows.Add(curr + next + third);
-            }
+                windows.Add(depths[i] + depths[i + 1] + depths[i + 2]);
 
             return windows;
         }
