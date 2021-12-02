@@ -1,18 +1,19 @@
+using System.Linq;
+using Dive;
 using NUnit.Framework;
 
 namespace Dive_Tests
 {
     public class DiveTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
-        public void Test1()
+        [TestCase("forward 5", "down 5", "forward 8", "up 3", "down 8", "forward 2", ExpectedResult = 150)]
+        public int DiveTest(params string[] input)
         {
-            Assert.Pass();
+            var instructions = input.Select(s => new Instruction(s));
+            var sub = new Submarine(instructions);
+            var position = sub.Drive();
+            return position.Depth * position.Horizontal;
         }
     }
 }
