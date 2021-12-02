@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace SonarSweeper_Tests
 {
-    public class Tests
+    public class SonarSweeperTests
     {
         [TestCase(new[] {1, 2, 3, 4}, ExpectedResult = 1)]
         [TestCase(new[] {1, 2, 3, 1}, ExpectedResult = 0)]
