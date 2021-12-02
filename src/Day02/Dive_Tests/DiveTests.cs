@@ -7,7 +7,7 @@ namespace Dive_Tests
     public class DiveTests
     {
         [Test]
-        [TestCase("forward 5", "down 5", "forward 8", "up 3", "down 8", "forward 2", ExpectedResult = 150)]
+        [TestCase("forward 5", "down 5", "forward 8", "up 3", "down 8", "forward 2", ExpectedResult = 900)]
         public int DiveTest(params string[] input)
         {
             var instructions = input.Select(s => new Instruction(s));

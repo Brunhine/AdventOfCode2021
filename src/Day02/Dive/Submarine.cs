@@ -5,14 +5,17 @@ namespace Dive
 {
     public class Submarine
     {
-        public IEnumerable<Instruction> Instructions { get; set; }
+        private IEnumerable<Instruction> Instructions { get; }
 
         public Position Position { get; }
+
+        private int Aim { get; set; }
 
         public Submarine(IEnumerable<Instruction> instructions)
         {
             Instructions = instructions;
             Position = new Position();
+            Aim = 0;
         }
 
         public Position Drive()
@@ -22,12 +25,13 @@ namespace Dive
                 {
                     case Direction.Forward:
                         Position.Horizontal += instruction.Distance;
+                        Position.Depth += Aim * instruction.Distance;
                         break;
                     case Direction.Up:
-                        Position.Depth -= instruction.Distance;
+                        Aim -= instruction.Distance;
                         break;
                     case Direction.Down:
-                        Position.Depth += instruction.Distance;
+                        Aim += instruction.Distance;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
