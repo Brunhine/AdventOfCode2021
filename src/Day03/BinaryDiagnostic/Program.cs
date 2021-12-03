@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.NetworkInformation;
 
 namespace BinaryDiagnostic
 {
@@ -21,7 +20,7 @@ namespace BinaryDiagnostic
 
             var gamma = Convert.ToInt32(string.Join("", results.gamma), 2);
             var epsilon = Convert.ToInt32(string.Join("", results.epsilon), 2);
-            
+
             Console.WriteLine(gamma * epsilon);
         }
 
