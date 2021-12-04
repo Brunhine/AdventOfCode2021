@@ -1,5 +1,5 @@
-using Day1_SonarSweep;
 using NUnit.Framework;
+using SonarSweep;
 
 namespace SonarSweeper_Tests
 {

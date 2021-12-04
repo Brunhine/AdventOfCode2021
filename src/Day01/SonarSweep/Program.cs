@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Day1_SonarSweep
+namespace SonarSweep
 {
     public static class Program
     {
