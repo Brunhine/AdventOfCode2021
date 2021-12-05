@@ -7,6 +7,8 @@ namespace GiantSquid
     {
         private BoardSpot[,] Board { get; }
 
+        public bool HasWon { get; private set; }
+
         public BingoBoard(int[,] boardNumbers)
         {
             Board = new BoardSpot[5, 5];
@@ -33,7 +35,8 @@ namespace GiantSquid
 
         private bool GetIsWinner()
         {
-            return CheckHorizontalWinner() || CheckVerticalWinner(); // || CheckDiagonalWinner();
+            HasWon = CheckHorizontalWinner() || CheckVerticalWinner();
+            return HasWon;
         }
 
         private bool CheckHorizontalWinner()
@@ -57,29 +60,6 @@ namespace GiantSquid
             }
 
             return false;
-        }
-
-        private bool CheckDiagonalWinner()
-        {
-            return CheckLeftDiagonalWinner() || CheckRightDiagonalWinner();
-        }
-
-        private bool CheckLeftDiagonalWinner()
-        {
-            for (var i = 0; i < 5; i++)
-                if (!Board[i, i].IsMarked)
-                    return false;
-
-            return true;
-        }
-
-        private bool CheckRightDiagonalWinner()
-        {
-            for (var i = 4; i > -1; i--)
-                if (!Board[i, i].IsMarked)
-                    return false;
-
-            return true;
         }
 
         private static IEnumerable<BoardSpot> GetRow(BoardSpot[,] board, int rowNumber)

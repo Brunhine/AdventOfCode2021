@@ -21,11 +21,11 @@ namespace GiantSquid_Tests
         }
 
         [Test]
-        public void Test1()
+        public void TestSampleGame()
         {
             var game = new BingoGame(numbersToDraw, boards);
 
-            Assert.AreEqual(game.RunGame(), 4512);
+            Assert.AreEqual(1924, game.RunGame());
         }
     }
 }
