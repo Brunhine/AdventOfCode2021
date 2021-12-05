@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Day1_SonarSweep
+namespace SonarSweep
 {
     public class SonarSweeper
     {
