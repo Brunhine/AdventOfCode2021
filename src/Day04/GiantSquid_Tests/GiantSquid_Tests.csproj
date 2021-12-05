@@ -14,4 +14,14 @@
         <PackageReference Include="coverlet.collector" Version="3.1.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <None Update="test_input.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\GiantSquid\GiantSquid.csproj"/>
+    </ItemGroup>
+
 </Project>
