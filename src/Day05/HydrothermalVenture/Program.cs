@@ -8,9 +8,9 @@ namespace HydrothermalVenture
 {
     public static class Program
     {
-        private const string RegexString = @"(?<x1>[0-9]+?),(?<y1>[0-9]+?) -> (?<x2>[0-9]+?),(?<y2>[0-9]+.?)";
+        public const string RegexString = @"(?<x1>[0-9]+?),(?<y1>[0-9]+?) -> (?<x2>[0-9]+?),(?<y2>[0-9]+.?)";
 
-        private static readonly Dictionary<Tuple<int, int>, int> ventCoordinates = new();
+        public static readonly Dictionary<Tuple<int, int>, int> VentCoordinates = new();
 
         public static void Main(string[] args)
         {
@@ -27,10 +27,10 @@ namespace HydrothermalVenture
                 ParseCoordinates(x1, y1, x2, y2);
             }
 
-            Console.WriteLine(ventCoordinates.Count(x => x.Value > 1));
+            Console.WriteLine(VentCoordinates.Count(x => x.Value > 1));
         }
 
-        private static void ParseCoordinates(int x1, int y1, int x2, int y2)
+        public static void ParseCoordinates(int x1, int y1, int x2, int y2)
         {
             if (x1 != x2 && y1 != y2)
                 SolveDiagonal(x1, y1, x2, y2);
@@ -75,7 +75,7 @@ namespace HydrothermalVenture
 
             var dx = x1;
             var dy = y1;
-            
+
             while (dx <= x2 && dy <= y2)
             {
                 InsertPoint(new Tuple<int, int>(dx, dy));
@@ -102,10 +102,10 @@ namespace HydrothermalVenture
 
         private static void InsertPoint(Tuple<int, int> point)
         {
-            if (ventCoordinates.ContainsKey(point))
-                ventCoordinates[point]++;
+            if (VentCoordinates.ContainsKey(point))
+                VentCoordinates[point]++;
             else
-                ventCoordinates.Add(point, 1);
+                VentCoordinates.Add(point, 1);
         }
     }
 }
