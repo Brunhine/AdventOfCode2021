@@ -8,7 +8,7 @@ namespace HydrothermalVenture
 {
     public static class Program
     {
-        private static readonly string regex = @"(?<x1>[0-9]+?),(?<y1>[0-9]+?) -> (?<x2>[0-9]+?),(?<y2>[0-9]+.?)";
+        private const string RegexString = @"(?<x1>[0-9]+?),(?<y1>[0-9]+?) -> (?<x2>[0-9]+?),(?<y2>[0-9]+.?)";
 
         private static readonly Dictionary<Tuple<int, int>, int> ventCoordinates = new();
 
@@ -18,7 +18,7 @@ namespace HydrothermalVenture
 
             foreach (var line in lines)
             {
-                var matches = Regex.Matches(line, regex);
+                var matches = Regex.Matches(line, RegexString);
                 var x1 = int.Parse(matches[0].Groups["x1"].Value);
                 var x2 = int.Parse(matches[0].Groups["x2"].Value);
                 var y1 = int.Parse(matches[0].Groups["y1"].Value);
@@ -32,9 +32,56 @@ namespace HydrothermalVenture
 
         private static void ParseCoordinates(int x1, int y1, int x2, int y2)
         {
-            if (x1 != x2 && y1 != y2) return;
+            if (x1 != x2 && y1 != y2)
+                SolveDiagonal(x1, y1, x2, y2);
+            else
+                SolveHorizontalAndVertical(x1, y1, x2, y2);
+        }
 
-            SolveHorizontalAndVertical(x1, y1, x2, y2);
+        private static void SolveDiagonal(int x1, int y1, int x2, int y2)
+        {
+            if (x1 < x2 && y1 < y2 || x1 > x2 && y1 > y2)
+                SolveSlopeDown(x1, y1, x2, y2);
+            else
+                SolveSlopeUp(x1, y1, x2, y2);
+        }
+
+        private static void SolveSlopeUp(int x1, int y1, int x2, int y2)
+        {
+            if (y1 > y2)
+            {
+                (x2, x1) = (x1, x2);
+                (y2, y1) = (y1, y2);
+            }
+
+            var dx = x1;
+            var dy = y1;
+
+            while (dx >= x2 && dy <= y2)
+            {
+                InsertPoint(new Tuple<int, int>(dx, dy));
+                dx--;
+                dy++;
+            }
+        }
+
+        private static void SolveSlopeDown(int x1, int y1, int x2, int y2)
+        {
+            if (x1 > x2)
+                (x2, x1) = (x1, x2);
+
+            if (y1 > y2)
+                (y2, y1) = (y1, y2);
+
+            var dx = x1;
+            var dy = y1;
+            
+            while (dx <= x2 && dy <= y2)
+            {
+                InsertPoint(new Tuple<int, int>(dx, dy));
+                dx++;
+                dy++;
+            }
         }
 
         private static void SolveHorizontalAndVertical(int x1, int y1, int x2, int y2)
