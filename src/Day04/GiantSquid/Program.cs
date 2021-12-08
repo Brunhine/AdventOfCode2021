@@ -17,7 +17,7 @@ namespace GiantSquid
 
             var game = new BingoGame(numbersToDraw, boards);
 
-            Console.WriteLine(game.RunGame());
+            Console.WriteLine($"Final score of winning board: {game.RunGame()}");
         }
 
         public static int[] GetNumbersToDraw(IEnumerable<string> input)

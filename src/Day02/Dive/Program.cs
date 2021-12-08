@@ -16,10 +16,8 @@ namespace Dive
 
             var position = sub.Drive();
 
-            Console.WriteLine($"Horizontal: {position.Horizontal}");
-            Console.WriteLine($"Depth: {position.Depth}");
-
-            Console.WriteLine($"Result: {position.Depth * position.Horizontal}");
+            Console.WriteLine(
+                $"Final position: h:{position.Horizontal} d:{position.Depth} (h*d= {position.Depth * position.Horizontal})");
         }
     }
 }

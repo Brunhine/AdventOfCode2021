@@ -31,7 +31,7 @@ namespace BinaryDiagnostic
             var oxygen = Convert.ToInt32(string.Join("", lifeSupport.oxygen), 2);
             var c02 = Convert.ToInt32(string.Join("", lifeSupport.c02), 2);
 
-            Console.WriteLine($"Life Suport: {oxygen * c02}");
+            Console.WriteLine($"Life Support: {oxygen * c02}");
         }
 
         public static (int[] gamma, int[] epsilon) GetPowerConsumption(IEnumerable<string> input)

@@ -13,7 +13,7 @@ namespace SonarSweep
 
             var sonar = new SonarSweeper(depths);
 
-            Console.WriteLine(sonar.Increases);
+            Console.WriteLine($"There were {sonar.Increases} in depth.");
         }
     }
 }

@@ -27,7 +27,7 @@ namespace HydrothermalVenture
                 ParseCoordinates(x1, y1, x2, y2);
             }
 
-            Console.WriteLine(VentCoordinates.Count(x => x.Value > 1));
+            Console.WriteLine($"Total dangerous areas to avoid: {VentCoordinates.Count(x => x.Value > 1)}");
         }
 
         public static void ParseCoordinates(int x1, int y1, int x2, int y2)
