@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenSegmentSearch", "src\D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SevenSegmentSearch_Tests", "src\Day08\SevenSegmentSearch_Tests\SevenSegmentSearch_Tests.csproj", "{CFACE628-88E2-4199-9D6E-22D07B7DC81C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCodeCommon", "src\AdventOfCodeCommon\AdventOfCodeCommon.csproj", "{DAAC7965-F479-4950-9734-8D214E002FEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +122,10 @@ Global
 		{CFACE628-88E2-4199-9D6E-22D07B7DC81C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFACE628-88E2-4199-9D6E-22D07B7DC81C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFACE628-88E2-4199-9D6E-22D07B7DC81C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAAC7965-F479-4950-9734-8D214E002FEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAAC7965-F479-4950-9734-8D214E002FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAAC7965-F479-4950-9734-8D214E002FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAAC7965-F479-4950-9734-8D214E002FEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{017E3A69-B01A-4A5A-817B-D286F5A4E15C} = {430DAE13-3250-4EDA-AE3B-CBCAB97ABEA3}

@@ -1,14 +1,19 @@
-namespace Lanternfish
+namespace AdventOfCodeCommon
 {
     public static class ArrayExtensions
     {
         public static T[] ShiftLeft<T>(this T[] array)
         {
             var size = array.Length;
-            T[] newArray = new T[size];
+            var newArray = new T[size];
             for (var i = 0; i < size; i++) newArray[i] = array[(i + 1) % size];
 
             return newArray;
+        }
+
+        public static bool IsSubset<T>(this T[] array1, T[] array2)
+        {
+            return !array2.Except(array1).Any();
         }
     }
 }
