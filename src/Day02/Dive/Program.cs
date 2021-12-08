@@ -8,7 +8,7 @@ namespace Dive
     {
         public static void Main(string[] args)
         {
-            string[] lines = File.ReadAllLines("input.txt");
+            var lines = File.ReadAllLines("input.txt");
 
             var instructions = lines.Select(s => new Instruction(s));
 

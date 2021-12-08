@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Update="input.txt">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
+        <ProjectReference Include="..\..\AdventOfCodeCommon\AdventOfCodeCommon.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\AdventOfCodeCommon\AdventOfCodeCommon.csproj"/>
+        <None Update="input.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>

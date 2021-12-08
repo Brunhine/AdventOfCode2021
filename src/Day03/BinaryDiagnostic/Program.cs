@@ -15,7 +15,7 @@ namespace BinaryDiagnostic
         public static void Main(string[] args)
         {
             // Get report from file
-            string[] lines = File.ReadAllLines("input.txt");
+            var lines = File.ReadAllLines("input.txt");
 
             // calculate power consumption (part 1)
             var powerConsumption = GetPowerConsumption(lines);
