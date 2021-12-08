@@ -10,6 +10,4 @@ public static class ArrayExtensions
 
         return newArray;
     }
-
-    
 }

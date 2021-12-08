@@ -11,22 +11,22 @@ namespace SevenSegmentSearch
         public Notebook(List<NoteEntry> entries)
         {
             Entries = entries;
-            
+
             DecodeEntries();
         }
 
         private void DecodeEntries()
         {
             DecodeSignalPatterns();
-            
+
             SetOutputValues();
         }
-        
+
         public int CountUniqueSegmentOutputs()
         {
             return Entries.Sum(entry => entry.OutputDigits.Count(x => x.Signal.Length is 2 or 3 or 4 or 7));
         }
-        
+
         public int GetTotalOutputValues()
         {
             return Entries.Sum(entry => entry.OutputValue);
@@ -68,7 +68,5 @@ namespace SevenSegmentSearch
                 entry.SignalPatterns.Single(x => x.Signal.Length == 5 && x.Signal.IsSubset(midL)).Value = 5;
             }
         }
-
-        
     }
 }
