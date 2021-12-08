@@ -8,9 +8,9 @@ namespace CrabSubs
     {
         public static void Main(string[] args)
         {
-            string line = File.ReadAllText("input.txt");
+            var line = File.ReadAllText("input.txt");
 
-            int[] positions = Array.ConvertAll(line.Split(","), int.Parse);
+            var positions = Array.ConvertAll(line.Split(","), int.Parse);
 
             var (bestPosition, fuelUsage) = DetermineOptimalCrabPosition(positions);
 

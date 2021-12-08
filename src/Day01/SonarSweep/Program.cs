@@ -7,7 +7,7 @@ namespace SonarSweep
     {
         public static void Main(string[] args)
         {
-            string[] lines = File.ReadAllLines("input.txt");
+            var lines = File.ReadAllLines("input.txt");
 
             var depths = Array.ConvertAll(lines, int.Parse);
 

@@ -9,7 +9,7 @@ namespace GiantSquid
     {
         public static void Main(string[] args)
         {
-            string[] lines = File.ReadAllLines("input.txt");
+            var lines = File.ReadAllLines("input.txt");
 
             var numbersToDraw = GetNumbersToDraw(lines);
 

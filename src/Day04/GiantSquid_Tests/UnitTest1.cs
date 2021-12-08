@@ -13,7 +13,7 @@ namespace GiantSquid_Tests
         [SetUp]
         public void Setup()
         {
-            string[] lines = File.ReadAllLines("test_input.txt");
+            var lines = File.ReadAllLines("test_input.txt");
 
             numbersToDraw = Program.GetNumbersToDraw(lines);
 

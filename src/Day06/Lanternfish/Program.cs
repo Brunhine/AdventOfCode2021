@@ -9,9 +9,9 @@ namespace Lanternfish
         {
             const int days = 256;
 
-            string input = File.ReadAllText("input.txt");
+            var input = File.ReadAllText("input.txt");
 
-            int[] ages = Array.ConvertAll(input.Split(","), int.Parse);
+            var ages = Array.ConvertAll(input.Split(","), int.Parse);
 
             var school = new School(ages);
 
