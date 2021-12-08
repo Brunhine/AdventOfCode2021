@@ -12,10 +12,10 @@ namespace CrabSubs
 
             int[] positions = Array.ConvertAll(line.Split(","), int.Parse);
 
-            var optimal = DetermineOptimalCrabPosition(positions);
+            var (bestPosition, fuelUsage) = DetermineOptimalCrabPosition(positions);
 
             Console.WriteLine(
-                $"Best fuel usage is {optimal.fuelUsage} units to get to position {optimal.bestPosition}");
+                $"Best fuel usage is {fuelUsage} units to get to position {bestPosition}");
         }
 
         public static (int bestPosition, int fuelUsage) DetermineOptimalCrabPosition(int[] positions)
@@ -27,13 +27,21 @@ namespace CrabSubs
 
             for (var i = 0; i < maxPosition; i++)
             {
-                var fuelUsed = positions.Sum(t => Math.Abs(t - i));
+                var fuelUsed = positions.Sum(p1 => CalculateFuelUsage(p1, i));
                 if (fuelUsed >= bestFuelUsage) continue;
                 bestPosition = i;
                 bestFuelUsage = fuelUsed;
             }
 
             return (bestPosition, bestFuelUsage);
+        }
+
+        private static int CalculateFuelUsage(int p1, int p2)
+        {
+            var dist = Math.Abs(p1 - p2);
+
+            // Triangular number: https://www.wikiwand.com/en/Triangular_number
+            return dist * (dist + 1) / 2;
         }
     }
 }
