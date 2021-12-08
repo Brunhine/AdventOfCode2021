@@ -11,34 +11,29 @@ namespace CrabSubs
             string line = File.ReadAllText("input.txt");
 
             int[] positions = Array.ConvertAll(line.Split(","), int.Parse);
-            
-            Console.WriteLine($"Best fuel usage is {calc(positions)}");
+
+            var optimal = DetermineOptimalCrabPosition(positions);
+
+            Console.WriteLine(
+                $"Best fuel usage is {optimal.fuelUsage} units to get to position {optimal.bestPosition}");
         }
 
-        public static int calc(int[] positions)
+        public static (int bestPosition, int fuelUsage) DetermineOptimalCrabPosition(int[] positions)
         {
             var maxPosition = positions.Max();
-            
+
             var bestPosition = int.MaxValue;
             var bestFuelUsage = int.MaxValue;
 
-            for (int i = 0; i < maxPosition; i++)
+            for (var i = 0; i < maxPosition; i++)
             {
-                var fuelUsed = 0;
-                for (int j = 0; j < positions.Length; j++)
-                {
-                    var distance = Math.Abs(positions[j] - i);
-                    fuelUsed += distance;
-                }
-
-                if (fuelUsed < bestFuelUsage)
-                {
-                    bestPosition = i;
-                    bestFuelUsage = fuelUsed;
-                }
+                var fuelUsed = positions.Sum(t => Math.Abs(t - i));
+                if (fuelUsed >= bestFuelUsage) continue;
+                bestPosition = i;
+                bestFuelUsage = fuelUsed;
             }
 
-            return bestFuelUsage;
+            return (bestPosition, bestFuelUsage);
         }
     }
 }
