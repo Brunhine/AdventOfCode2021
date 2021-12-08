@@ -7,7 +7,7 @@ namespace Lanternfish
     {
         public static void Main(string[] args)
         {
-            const int days = 80;
+            const int days = 256;
 
             string input = File.ReadAllText("input.txt");
 

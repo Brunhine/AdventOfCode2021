@@ -1,28 +1,59 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lanternfish
 {
     public class School
     {
-        private List<Fish> school = new();
+        private long[] school;
 
-        public int Size => school.Count;
+        public long Size
+        {
+            get
+            {
+                long fish = 0;
+                for (int i = 0; i < school.Length; i++)
+                {
+                    fish += school[i];
+                }
+
+                return fish;
+            }
+        }
 
         public School(IEnumerable<int> startingFish)
         {
-            school = new List<Fish>();
-            foreach (var age in startingFish) school.Add(new Fish(ref school, age));
+            school = new long[9];
+            foreach (var age in startingFish)
+            {
+                school[age]++;
+            }
         }
 
         public void AddFish(int age = 8)
         {
-            school.Add(new Fish(ref school, age));
+            school[age-1]++;
         }
 
         public void PassDay()
         {
-            var schoolSize = school.Count;
-            for (var j = 0; j < schoolSize; j++) school[j].Age();
+            long newFish = school[0];
+
+            school = shiftLeft(school);
+
+            school[6] += newFish;
+            //school[7] += newFish;
+        }
+
+        private long[] shiftLeft(long[] array)
+        {
+            long[] newArray = new long[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                newArray[i] = array[(i + 1) % array.Length];
+            }
+
+            return newArray;
         }
     }
 }
