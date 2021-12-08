@@ -1,3 +1,4 @@
+
 using NUnit.Framework;
 
 namespace CrabSubs
@@ -9,10 +10,10 @@ namespace CrabSubs
         {
         }
 
-        [Test]
-        public void PartOneTests()
+        [TestCase(new int[] {16,1,2,0,4,2,7,1,2,14}, ExpectedResult = 37)]
+        public int PartOneTests(int[] positions)
         {
-            Assert.Pass();
+            return Program.calc(positions);
         }
     }
 }
