@@ -10,4 +10,23 @@ public static class ArrayExtensions
 
         return newArray;
     }
+
+    public static T?[] GetNeighbors<T>(this T[,] map, int h, int w) where T : struct
+    {
+        var neighbors = new T?[4];
+
+        // top
+        neighbors[0] = h > 0 ? map[h - 1, w] : null;
+
+        // right
+        neighbors[1] = w < map.GetLength(1) - 1 ? map[h, w + 1] : null;
+
+        // bottom
+        neighbors[2] = h < map.GetLength(0) - 1 ? map[h + 1, w] : null;
+
+        // left
+        neighbors[3] = w > 0 ? map[h, w - 1] : null;
+
+        return neighbors;
+    }
 }
