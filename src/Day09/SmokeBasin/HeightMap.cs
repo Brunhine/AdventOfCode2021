@@ -67,33 +67,41 @@ public class HeightMap
 
         var neighbors = map.GetNeighbors(position.Location.h, position.Location.w);
 
-        // look up
-        if (IsUpSlope(neighbors[0], position.Height))
-        {
-            var p = new Position((position.Location.h - 1, position.Location.w), neighbors[0]);
-            GetUpSlopes(p, ref upSlopes);
-        }
+        CheckTopNeighbor(position, ref upSlopes, neighbors[0]);
 
-        // look right
-        if (IsUpSlope(neighbors[1], position.Height))
-        {
-            var p = new Position((position.Location.h, position.Location.w + 1), neighbors[1]);
-            GetUpSlopes(p, ref upSlopes);
-        }
+        CheckRightNeighbor(position, ref upSlopes, neighbors[1]);
 
-        // look down
-        if (IsUpSlope(neighbors[2], position.Height))
-        {
-            var p = new Position((position.Location.h + 1, position.Location.w), neighbors[2]);
-            GetUpSlopes(p, ref upSlopes);
-        }
+        CheckBottomNeighbor(position, ref upSlopes, neighbors[2]);
 
-        // look left
-        if (IsUpSlope(neighbors[3], position.Height))
-        {
-            var p = new Position((position.Location.h, position.Location.w - 1), neighbors[3]);
-            GetUpSlopes(p, ref upSlopes);
-        }
+        CheckLeftNeighbor(position, ref upSlopes, neighbors[3]);
+    }
+
+    private void CheckTopNeighbor(Position position, ref List<Position> upSlopes, int? neighbor)
+    {
+        if (!IsUpSlope(neighbor, position.Height)) return;
+        var p = new Position((position.Location.h - 1, position.Location.w), neighbor);
+        GetUpSlopes(p, ref upSlopes);
+    }
+
+    private void CheckRightNeighbor(Position position, ref List<Position> upSlopes, int? neighbor)
+    {
+        if (!IsUpSlope(neighbor, position.Height)) return;
+        var p = new Position((position.Location.h, position.Location.w + 1), neighbor);
+        GetUpSlopes(p, ref upSlopes);
+    }
+
+    private void CheckBottomNeighbor(Position position, ref List<Position> upSlopes, int? neighbor)
+    {
+        if (!IsUpSlope(neighbor, position.Height)) return;
+        var p = new Position((position.Location.h + 1, position.Location.w), neighbor);
+        GetUpSlopes(p, ref upSlopes);
+    }
+
+    private void CheckLeftNeighbor(Position position, ref List<Position> upSlopes, int? neighbor)
+    {
+        if (!IsUpSlope(neighbor, position.Height)) return;
+        var p = new Position((position.Location.h, position.Location.w - 1), neighbor);
+        GetUpSlopes(p, ref upSlopes);
     }
 
     private bool IsUpSlope(int? neighbor, int orig)
