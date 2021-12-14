@@ -10,4 +10,27 @@ public static class ArrayExtensions
 
         return newArray;
     }
+
+    public static IEnumerable<T> GetNeighbors<T>(this T[,] map, int h, int w)
+    {
+        var neighbors = new List<T>();
+
+        // get top
+        if (h > 0)
+            neighbors.Add(map[h - 1, w]);
+
+        // get bottom
+        if (h < map.GetLength(0) - 1)
+            neighbors.Add(map[h + 1, w]);
+
+        // get right
+        if (w < map.GetLength(1) - 1)
+            neighbors.Add(map[h, w + 1]);
+
+        // get left
+        if (w > 0)
+            neighbors.Add(map[h, w - 1]);
+
+        return neighbors;
+    }
 }
