@@ -11,25 +11,21 @@ public static class ArrayExtensions
         return newArray;
     }
 
-    public static IEnumerable<T> GetNeighbors<T>(this T[,] map, int h, int w)
+    public static T?[] GetNeighbors<T>(this T[,] map, int h, int w) where T : struct
     {
-        var neighbors = new List<T>();
+        var neighbors = new T?[4];
 
-        // get top
-        if (h > 0)
-            neighbors.Add(map[h - 1, w]);
+        // top
+        neighbors[0] = h > 0 ? map[h - 1, w] : null;
 
-        // get bottom
-        if (h < map.GetLength(0) - 1)
-            neighbors.Add(map[h + 1, w]);
+        // right
+        neighbors[1] = w < map.GetLength(1) - 1 ? map[h, w + 1] : null;
 
-        // get right
-        if (w < map.GetLength(1) - 1)
-            neighbors.Add(map[h, w + 1]);
+        // bottom
+        neighbors[2] = h < map.GetLength(0) - 1 ? map[h + 1, w] : null;
 
-        // get left
-        if (w > 0)
-            neighbors.Add(map[h, w - 1]);
+        // left
+        neighbors[3] = w > 0 ? map[h, w - 1] : null;
 
         return neighbors;
     }
