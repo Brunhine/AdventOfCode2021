@@ -1,3 +1,7 @@
-﻿var lines = File.ReadAllLines("input.txt");
+﻿using SyntaxScoring;
 
-Console.WriteLine("Hello, World!");
+var lines = File.ReadAllLines("input.txt");
+
+var score = lines.Sum(SyntaxParser.GetLineScore);
+
+Console.WriteLine($"The score is: {score}");
