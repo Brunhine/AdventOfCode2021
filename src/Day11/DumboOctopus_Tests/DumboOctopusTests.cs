@@ -18,12 +18,17 @@ public class DumboOctopusTests
 
         for (var i = 0; i < steps; i++) grid.DoStep();
 
-        return grid.Flashes;
+        return grid.TotalFlashes;
     }
 
     [Test]
     public void Part2Tests()
     {
-        Assert.Pass();
+        var grid = new OctopusGrid("test_input.txt");
+
+        var step = 1;
+        while (grid.DoStep() != 100) step++;
+
+        Assert.AreEqual(195, step);
     }
 }

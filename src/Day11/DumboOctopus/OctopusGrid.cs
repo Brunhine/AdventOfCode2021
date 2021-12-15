@@ -6,7 +6,9 @@ public class OctopusGrid
 {
     private readonly Octopus[,] map;
 
-    public int Flashes { get; private set; }
+    private int currentStepFlashes;
+
+    public int TotalFlashes { get; private set; }
 
     public OctopusGrid(string fileName)
     {
@@ -28,8 +30,10 @@ public class OctopusGrid
         }
     }
 
-    public void DoStep()
+    public int DoStep()
     {
+        currentStepFlashes = 0;
+
         for (var h = 0; h < map.GetLength(0); h++)
         for (var w = 0; w < map.GetLength(1); w++)
             IncreaseOctopus(map[h, w]);
@@ -37,13 +41,16 @@ public class OctopusGrid
         for (var h = 0; h < map.GetLength(0); h++)
         for (var w = 0; w < map.GetLength(1); w++)
             map[h, w].Reset();
+
+        return currentStepFlashes;
     }
 
     private void IncreaseOctopus(Octopus octopus)
     {
         if (!octopus.IncreaseEnergy()) return;
 
-        Flashes++;
+        TotalFlashes++;
+        currentStepFlashes++;
 
         var neighbors = map.GetNeighborsWithDiagonals(octopus.Position.H, octopus.Position.W);
 
