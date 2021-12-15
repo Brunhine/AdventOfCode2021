@@ -18,16 +18,16 @@ public class Graph
         vertices[to].Add(from);
     }
 
-    public int GetAllPaths(string start, string end)
+    public int GetAllPaths(string start, string end, PathingType mode)
     {
         currentPath.Clear();
         allPaths.Clear();
 
-        FindPathWay(start, end);
+        FindPathWay(start, end, mode);
         return allPaths.Count;
     }
 
-    private void FindPathWay(string start, string end)
+    private void FindPathWay(string start, string end, PathingType mode = PathingType.VisitOnce)
     {
         if (start == "start" && currentPath.Contains("start"))
             return;
@@ -41,24 +41,41 @@ public class Graph
             return;
         }
 
-        if (IsSmallCave(start) && PathAlreadyVisited(start))
+        var canVisit = mode switch
+        {
+            PathingType.VisitOnce => AlreadyVisitedOnce(start),
+            PathingType.VisitOneTwice => AlreadyVisitedOneTwice(start),
+            _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+        };
+
+        if (IsSmallCave(start) && canVisit)
         {
             currentPath.Pop();
             return;
         }
 
-        foreach (var adjacent in vertices[start]) FindPathWay(adjacent, end);
+        foreach (var adjacent in vertices[start]) FindPathWay(adjacent, end, mode);
 
         currentPath.Pop();
     }
-
+    
     private static bool IsSmallCave(string cave)
     {
         return cave.All(char.IsLower);
     }
 
-    private bool PathAlreadyVisited(string v)
+    private bool AlreadyVisitedOnce(string v)
     {
         return currentPath.Count(c => c == v) > 1;
+    }
+
+    private bool AlreadyVisitedOneTwice(string v)
+    {
+        return currentPath
+                   .Where(c => char.IsLower(c[0]) && c != v)
+                   .GroupBy(c => c)
+                   .Any(g => g.Count() > 1)
+               && currentPath.Count(c => c == v) == 2
+               || currentPath.Count(c => c == v) > 2;
     }
 }

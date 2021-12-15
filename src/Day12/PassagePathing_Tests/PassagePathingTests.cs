@@ -7,15 +7,27 @@ namespace PassagePathing_Tests;
 
 public class PassagePathingTests
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-
     [TestCase("small_input.txt", ExpectedResult = 10)]
     [TestCase("test_input.txt", ExpectedResult = 19)]
     [TestCase("large_input.txt", ExpectedResult = 226)]
     public int Part1Tests(string fileName)
+    {
+        var graph = GetGraph(fileName);
+
+        return graph.GetAllPaths("start", "end", PathingType.VisitOnce);
+    }
+
+    [TestCase("small_input.txt", ExpectedResult = 36)]
+    [TestCase("test_input.txt", ExpectedResult = 103)]
+    [TestCase("large_input.txt", ExpectedResult = 3509)]
+    public int Part2Tests(string fileName)
+    {
+        var graph = GetGraph(fileName);
+
+        return graph.GetAllPaths("start", "end", PathingType.VisitOneTwice);
+    }
+
+    private static Graph GetGraph(string fileName)
     {
         var lines = File.ReadAllLines(fileName).ToList();
 
@@ -27,12 +39,6 @@ public class PassagePathingTests
             graph.AddEdge(edge[0], edge[1]);
         });
 
-        return graph.GetAllPaths("start", "end");
-    }
-    
-    [Test]
-    public void Part2Tests()
-    {
-        Assert.Pass();
+        return graph;
     }
 }
