@@ -29,4 +29,35 @@ public static class ArrayExtensions
 
         return neighbors;
     }
+
+    public static T?[] GetNeighborsWithDiagonals<T>(this T[,] map, int h, int w) where T : class
+    {
+        var neighbors = new T?[8];
+
+        // top
+        neighbors[0] = h > 0 ? map[h - 1, w] : null;
+
+        // top right
+        neighbors[1] = h > 0 && w < map.GetLength(1) - 1 ? map[h - 1, w + 1] : null;
+
+        // right
+        neighbors[2] = w < map.GetLength(1) - 1 ? map[h, w + 1] : null;
+
+        // bottom right
+        neighbors[3] = h < map.GetLength(0) - 1 && w < map.GetLength(1) - 1 ? map[h + 1, w + 1] : null;
+
+        // bottom
+        neighbors[4] = h < map.GetLength(0) - 1 ? map[h + 1, w] : null;
+
+        // bottom left
+        neighbors[5] = h < map.GetLength(0) - 1 && w > 0 ? map[h + 1, w - 1] : null;
+
+        // left
+        neighbors[6] = w > 0 ? map[h, w - 1] : null;
+
+        // top left
+        neighbors[7] = h > 0 && w > 0 ? map[h - 1, w - 1] : null;
+
+        return neighbors;
+    }
 }

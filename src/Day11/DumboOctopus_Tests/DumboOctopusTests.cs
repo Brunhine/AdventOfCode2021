@@ -1,3 +1,4 @@
+using DumboOctopus;
 using NUnit.Framework;
 
 namespace DumboOctopus_Tests;
@@ -9,10 +10,15 @@ public class DumboOctopusTests
     {
     }
 
-    [Test]
-    public void Part1Tests()
+    [TestCase("small_input.txt", 2, ExpectedResult = 9)]
+    [TestCase("test_input.txt", 100, ExpectedResult = 1656)]
+    public int Part1Tests(string fileName, int steps)
     {
-        Assert.Pass();
+        var grid = new OctopusGrid(fileName);
+
+        for (var i = 0; i < steps; i++) grid.DoStep();
+
+        return grid.Flashes;
     }
 
     [Test]
