@@ -14,4 +14,20 @@
         <PackageReference Include="coverlet.collector" Version="3.1.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PassagePathing\PassagePathing.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="small_input.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="test_input.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="large_input.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
