@@ -5,6 +5,7 @@ public static class SyntaxParser
     private static readonly List<char> CloseTags = new() {')', ']', '}', '>'};
     private static readonly List<char> OpenTags = new() {'(', '[', '{', '<'};
 
+    // ReSharper disable once CognitiveComplexity
     public static int GetIllegalLineScore(string rawLine)
     {
         var line = GetCharacterList(rawLine);
@@ -23,37 +24,32 @@ public static class SyntaxParser
 
         return 0;
     }
-    
+
+    // ReSharper disable once CognitiveComplexity
     public static long GetAutoCompleteLineScore(string rawLine)
     {
         var line = GetCharacterList(rawLine);
-        
+
         // mark all the matches
-        for (int close = 0; close < line.Count; close++)
+        for (var close = 0; close < line.Count; close++)
         {
-            if (IsCloseTag(line[close].Char))
+            if (!IsCloseTag(line[close].Char)) continue;
+
+            for (var open = close - 1; open >= 0; open--)
             {
-                for (int open = close -1; open >= 0; open--)
-                {
-                    if (IsOpenTag(line[open].Char) && !line[open].Matched)
-                    {
-                        line[open].MarkMatched();
-                        line[close].MarkMatched();
-                        break;
-                    }
-                }
+                if (!IsOpenTag(line[open].Char) || line[open].Matched) continue;
+
+                line[open].MarkMatched();
+                line[close].MarkMatched();
+                break;
             }
         }
 
         var closingChars = new List<char>();
 
-        for (int i = line.Count-1; i >= 0; i--)
-        {
+        for (var i = line.Count - 1; i >= 0; i--)
             if (!line[i].Matched)
-            {
                 closingChars.Add(GetClosingTag(line[i].Char));
-            }
-        }
 
         long score = 0;
 
@@ -62,7 +58,7 @@ public static class SyntaxParser
             score = score * 5;
             score += GetAutocompleteCharScore(closingChar);
         }
-        
+
         return score;
     }
 
@@ -104,8 +100,8 @@ public static class SyntaxParser
         {
             '(' => ')',
             '[' => ']',
-            '{' =>  '}',
-            '<' =>  '>',
+            '{' => '}',
+            '<' => '>',
             _ => throw new ArgumentOutOfRangeException(nameof(c))
         };
     }
@@ -133,6 +129,4 @@ public static class SyntaxParser
             _ => throw new ArgumentOutOfRangeException(nameof(c))
         };
     }
-
-    
 }

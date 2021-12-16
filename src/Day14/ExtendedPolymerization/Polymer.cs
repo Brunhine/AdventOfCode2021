@@ -4,71 +4,58 @@ public class Polymer
 {
     public string Template { get; }
 
-    private List<PairInsertionRule> Instructions { get; }
+    private Dictionary<string, string> Rules { get; }
 
-    public string CurrentPolymer { get; set; }
+    private Dictionary<string, long> Pairs { get; set; }
 
-    private Polymer(string template, List<PairInsertionRule> instructions)
+    private Polymer(string template, Dictionary<string, string> rules)
     {
         Template = template;
-        CurrentPolymer = template;
+        Rules = rules;
+        Pairs = new Dictionary<string, long>();
 
-        Instructions = instructions;
+        for (var i = 0; i < template.Length - 1; i++)
+            Pairs[template[i..(i + 2)]] = Pairs.GetValueOrDefault(template[i..(i + 2)]) + 1;
     }
 
     public static Polymer BuildPolymer(List<string> input)
     {
         var template = input[0];
-        var instructions = new List<PairInsertionRule>();
+        var rules = new Dictionary<string, string>();
 
-        for (var i = 2; i < input.Count; i++)
-        {
-            var rule = new PairInsertionRule
-            {
-                Pair = input[i].Split(" ")[0],
-                Insertion = input[i].Split(" ")[2]
-            };
-            instructions.Add(rule);
-        }
+        for (var i = 2; i < input.Count; i++) rules.Add(input[i][..2], input[i][^1..]);
 
-        return new Polymer(template, instructions);
+        return new Polymer(template, rules);
     }
 
     public void DoStep()
     {
-        var pairs = GetPairs();
+        var newPairs = new Dictionary<string, long>();
 
-        var polymer = pairs[0][0].ToString();
-
-        foreach (var pair in pairs)
+        foreach (var (key, value) in Pairs)
         {
-            var instruction = Instructions.Single(i => i.Pair == pair);
-            polymer += instruction.Insertion + pair[1];
+            var insert = Rules[key];
+            var p1 = key[0] + insert;
+            var p2 = insert + key[1];
+            newPairs[p1] = newPairs.GetValueOrDefault(p1) + value;
+            newPairs[p2] = newPairs.GetValueOrDefault(p2) + value;
         }
 
-        CurrentPolymer = polymer;
+        Pairs = newPairs;
     }
 
-    public int GetPolymerScore()
+    public long GetPolymerScore()
     {
-        var most = CurrentPolymer.GroupBy(x => x).OrderByDescending(x => x.Count()).First();
-        var least = CurrentPolymer.GroupBy(x => x).OrderBy(x => x.Count()).First();
+        var letterCount = new Dictionary<char, long>();
+        foreach (var (key, value) in Pairs)
+        {
+            letterCount[key[0]] = letterCount.GetValueOrDefault(key[0]) + value;
+            letterCount[key[1]] = letterCount.GetValueOrDefault(key[1]) + value;
+        }
 
-        return most.Count() - least.Count();
+        letterCount[Template[0]]++;
+        letterCount[Template.Last()]++;
+
+        return (letterCount.Values.Max() - letterCount.Values.Min()) / 2;
     }
-
-    private List<string> GetPairs()
-    {
-        var pairs = new List<string>();
-        for (var i = 0; i < CurrentPolymer.Length - 1; i++) pairs.Add(CurrentPolymer.Substring(i, 2));
-
-        return pairs;
-    }
-}
-
-public class PairInsertionRule
-{
-    public string Pair { get; set; }
-
-    public string Insertion { get; set; }
 }
