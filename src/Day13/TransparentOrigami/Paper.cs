@@ -27,7 +27,7 @@ public class Paper
             else
             {
                 var pos = line.Split(',');
-                Dots.Add(new Position {X = int.Parse(pos[0]), Y = int.Parse(pos[1])});
+                Dots.Add(new Position(int.Parse(pos[0]), int.Parse(pos[1])));
             }
         }
     }
@@ -42,6 +42,11 @@ public class Paper
             else
                 FoldLeft(instruction.Line);
         }
+    }
+
+    public void DoFolds()
+    {
+        DoFolds(FoldInstructions.Count);
     }
 
     private void FoldLeft(int line)

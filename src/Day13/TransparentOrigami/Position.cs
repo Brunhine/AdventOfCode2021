@@ -1,20 +1,14 @@
 namespace TransparentOrigami;
 
-public class Position : IEqualityComparer<Position>
+public class Position
 {
     public int X { get; set; }
     public int Y { get; set; }
 
-    public bool Equals(Position? lhs, Position? rhs)
+    public Position(int x, int y)
     {
-        if (lhs == null || rhs == null) return false;
-
-        return lhs.X == rhs.X && lhs.Y == rhs.Y;
-    }
-
-    public int GetHashCode(Position obj)
-    {
-        return HashCode.Combine(obj.X, obj.Y);
+        X = x;
+        Y = y;
     }
 
     public override string ToString()
