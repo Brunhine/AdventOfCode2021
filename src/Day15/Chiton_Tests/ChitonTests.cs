@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using Chiton;
 using NUnit.Framework;
 
@@ -19,7 +17,7 @@ public class ChitonTests
     public void Part2Tests()
     {
         var map = new CavernMap("test_input.txt", 5);
-        
+
         Assert.AreEqual(315, map.LowestRisk());
     }
 }

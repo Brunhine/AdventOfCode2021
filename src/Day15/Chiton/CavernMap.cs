@@ -24,7 +24,7 @@ public class CavernMap
         for (var x = 0; x < chunkWidth * multiples; x++)
         {
             var val = int.Parse(lines[y % chunkHeight][x % chunkWidth].ToString()) + x / chunkWidth + y / chunkHeight;
-            while (val > 9) val -= 9; 
+            while (val > 9) val -= 9;
             graph.Add((x, y), val);
         }
 
