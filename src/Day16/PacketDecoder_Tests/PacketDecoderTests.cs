@@ -71,9 +71,18 @@ public class PacketDecoderTests
         return packet.GetVersionSum();
     }
 
-    [Test]
-    public void Part2Tests()
+    [TestCase("C200B40A82", ExpectedResult = 3, TestName = "Sum: 1+1")]
+    [TestCase("04005AC33890", ExpectedResult = 54, TestName = "Product: 6*9")]
+    [TestCase("880086C3E88112", ExpectedResult = 7, TestName = "Min: 7,8,9")]
+    [TestCase("CE00C43D881120", ExpectedResult = 9, TestName = "Max: 7,8,9")]
+    [TestCase("D8005AC2A8F0", ExpectedResult = 1, TestName = "Less Than: 5<15")]
+    [TestCase("F600BC2D8F", ExpectedResult = 0, TestName = "Greater Than: 5>15")]
+    [TestCase("9C005AC2F8F0", ExpectedResult = 0, TestName = "Equals: 5==15")]
+    [TestCase("9C0141080250320F1802104A08", ExpectedResult = 1, TestName = "Equals: 1+3==2*2")]
+    public long Part2Tests(string hexString)
     {
-        Assert.Pass();
+        var packet = Decoder.Decode(hexString);
+
+        return packet.GetValue();
     }
 }

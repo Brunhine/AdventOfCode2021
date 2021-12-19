@@ -3,7 +3,10 @@ namespace PacketDecoder;
 public abstract class Packet
 {
     public int Version { get; init; }
+
     public int Type { get; init; }
+
+    public abstract long GetValue();
 
     public abstract int GetVersionSum();
 

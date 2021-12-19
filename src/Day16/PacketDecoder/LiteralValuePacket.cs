@@ -4,11 +4,16 @@ public class LiteralValuePacket : Packet
 {
     public List<string> NumberGroups { get; init; }
 
-    public int NumberValue => Convert.ToInt32(string.Join("", NumberGroups), 2);
+    public long NumberValue => Convert.ToInt64(string.Join("", NumberGroups), 2);
 
     public LiteralValuePacket()
     {
         NumberGroups = new List<string>();
+    }
+
+    public override long GetValue()
+    {
+        return NumberValue;
     }
 
     public override int GetVersionSum()
